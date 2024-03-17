@@ -12,6 +12,10 @@ jobs:
     name: Lint Title
     runs-on: ubuntu-latest
     steps:
+      - name: Print CI env variables
+        run: |
+          npm i -g @bahmutov/print-env@2
+          print-env GITHUB BUILD ACTIONS || true
       - uses: amannn/action-semantic-pull-request@48f256284bd46cdaab1048c3721360e808335d50 # v6.1.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
