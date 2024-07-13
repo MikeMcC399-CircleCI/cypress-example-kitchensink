@@ -149,7 +149,8 @@ jobs:
   linux-test:
     # checks out code and installs dependencies once
     # runs on 3 machines, load balances tests
-    # and records on Cypress Cloud    parallelism: 3
+    # and records on Cypress Cloud    
+    # parallelism: 3
     executor:
       name: cypress/default
       node-version: '20.13.1'
@@ -172,7 +173,7 @@ jobs:
 
   linux-test-chrome:
     # runs on 2 machines using Chrome browser
-    parallelism: 2
+    # parallelism: 2
     executor:
       name: cypress/default
       node-version: '20.13.1'
@@ -186,7 +187,7 @@ jobs:
           
   linux-test-firefox:
     # runs on 2 machines using Firefox browser
-    parallelism: 2  
+    # parallelism: 2  
     executor:
       name: cypress/default
       node-version: '20.13.1'
