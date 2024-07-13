@@ -154,6 +154,32 @@ jobs:
       - cypress/install
       - cypress/run-tests:
           start-command: 'npm run start'
+  
+  linux-test-chrome:
+    executor:
+      name: cypress/default
+      node-version: '20.13.1'
+    steps:
+      - cypress/install:
+          install-browsers: true
+      - cypress/run-tests:
+          start-command: 'npm run start'
+          cypress-command: 'npx cypress run --browser chrome'
+      #     cypress-command: 'npx cypress run --browser chrome --record --parallel --group 2x-chrome on CircleCI'
+      #     parallelism: 2
+
+  linux-test-firefox:
+    executor:
+      name: cypress/default
+      node-version: '20.13.1'
+    steps:
+      - cypress/install:
+          install-browsers: true
+      - cypress/run-tests:
+          start-command: 'npm run start'
+          cypress-command: 'npx cypress run --browser firefox'
+      #     cypress-command: 'npx cypress run --browser firefox --record --parallel --group 2x-chrome on CircleCI'
+      #     parallelism: 2      
 
   release:
     executor:
@@ -177,6 +203,8 @@ workflows:
   linux-build:
     jobs:
       - linux-test
+      - linux-test-chrome
+      - linux-test-firefox
 
     # jobs:
     #   # checks out code and installs dependencies once
