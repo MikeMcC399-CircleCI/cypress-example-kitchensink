@@ -145,6 +145,15 @@ jobs:
       - cypress/run-tests:
           start-command: 'npm run start'
           cypress-command: 'npx cypress run --record --group Mac build'
+  
+  linux-test:
+    executor:
+      name: cypress/default
+      node-version: '20.13.1'
+    steps:
+      - cypress/install
+      - cypress/run-tests:
+          start-command: 'npm run start'
 
   release:
     executor:
@@ -167,29 +176,32 @@ workflows:
 
   linux-build:
     jobs:
-      # checks out code and installs dependencies once
-      # runs on 3 machines, load balances tests
-      # and records on Cypress Cloud
-      - cypress/run:
-          # name: '3 machines'
-          name: 'one spec'
-          post-install: 'npm run build'
-          start-command: 'npm run start'
-          # cypress-command: 'npx cypress run --record --parallel --group 3x-electron on CircleCI'
-          cypress-command: 'npx cypress run --spec cypress/e2e/1-getting-started/todo.cy.js'
-          # parallelism: 3
-          post-steps:
-            # show Cypress cache folder and binary versions
-            # to check if we are caching previous binary versions
-            - run: npx cypress cache path
-            - run: npx cypress cache list
-            - run: npx cypress info
-            # let's print version info
-            - run: npx cypress version
-            - run: npx cypress version --component package
-            - run: npx cypress version --component binary
-            - run: npx cypress version --component electron
-            - run: npx cypress version --component node
+      - linux-test
+
+    # jobs:
+    #   # checks out code and installs dependencies once
+    #   # runs on 3 machines, load balances tests
+    #   # and records on Cypress Cloud
+    #   - cypress/run:
+    #       # name: '3 machines'
+    #       name: 'one spec'
+    #       post-install: 'npm run build'
+    #       start-command: 'npm run start'
+    #       # cypress-command: 'npx cypress run --record --parallel --group 3x-electron on CircleCI'
+    #       cypress-command: 'npx cypress run --spec cypress/e2e/1-getting-started/todo.cy.js'
+    #       # parallelism: 3
+    #       post-steps:
+    #         # show Cypress cache folder and binary versions
+    #         # to check if we are caching previous binary versions
+    #         - run: npx cypress cache path
+    #         - run: npx cypress cache list
+    #         - run: npx cypress info
+    #         # let's print version info
+    #         - run: npx cypress version
+    #         - run: npx cypress version --component package
+    #         - run: npx cypress version --component binary
+    #         - run: npx cypress version --component electron
+    #         - run: npx cypress version --component node
 
       # # run on 2 machines using Chrome browser
       # - cypress/run:
