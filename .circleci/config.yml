@@ -187,7 +187,8 @@ jobs:
       node-version: '20.13.1'
     steps:
       - checkout
-      - run: npx semantic-release@23.1.1
+      # - run: npx semantic-release@23.1.1
+      - run: echo checking out at this point
 
 workflows:
   # win-build:
@@ -246,12 +247,12 @@ workflows:
       #     cypress-command: 'npx cypress run --browser firefox --record --parallel --group 2x-firefox on CircleCI'
       #     parallelism: 2
 
-      # - release:
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
-      #     requires:
-      #       - 3 machines
-      #       - 2 machines using Chrome
-      #       - 2 machines using Firefox
+      - release:
+          # filters:
+          #   branches:
+          #     only:
+          #       - master
+          requires:
+            - linux-test
+            - linux-test-chrome
+            - linux-test-firefox
