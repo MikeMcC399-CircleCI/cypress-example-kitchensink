@@ -28,7 +28,12 @@ jobs:
       shell: bash.exe
     steps:
       - checkout
-
+      - run:
+          name: Install Node.js
+          command: |
+            nvm --version
+            nvm install 22
+            nvm use 22
       - restore_cache:
           key: dependencies-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}
 
@@ -63,7 +68,12 @@ jobs:
       shell: bash.exe
     steps:
       - checkout
-
+      - run:
+          name: Install Node.js
+          command: |
+            nvm --version
+            nvm install 22
+            nvm use 22
       - restore_cache:
           key: dependencies-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}
 
@@ -101,7 +111,12 @@ jobs:
       shell: bash.exe
     steps:
       - checkout
-
+      - run:
+          name: Install Node.js
+          command: |
+            nvm --version
+            nvm install 22
+            nvm use 22
       - restore_cache:
           key: dependencies-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}
 
