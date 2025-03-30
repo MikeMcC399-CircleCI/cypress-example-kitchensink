@@ -1,4 +1,5 @@
 {
+  "branches": "next",
   "commitMessage": "release %s",
   "tagAnnotation": "release %s",
   "github": {
