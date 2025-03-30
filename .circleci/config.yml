@@ -230,10 +230,10 @@ workflows:
       - linux-test-firefox
 
       - release:
-          filters:
-            branches:
-              only:
-                - master
+          # filters:
+          #   branches:
+          #     only:
+          #       - master
           requires:
             - linux-test
             - linux-test-chrome
