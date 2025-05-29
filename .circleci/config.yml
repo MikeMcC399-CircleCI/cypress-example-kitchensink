@@ -35,6 +35,7 @@ jobs:
       - restore_cache:
           key: dependencies-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}
 
+      - run: export DEBUG=cypress:cli*
       - run: npm ci
       - run: npm run cy:verify
       - run: npm run cy:info
