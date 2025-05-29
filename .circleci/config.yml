@@ -172,11 +172,11 @@ jobs:
       name: cypress/default
       node-version: '22.16.0'
     steps:
-      - cypress/install:
-          post-install: 'npm run build'
       - run:
           command: |
             echo "export DEBUG=cypress:cli*" >> "$BASH_ENV"
+      - cypress/install:
+          post-install: 'npm run build'
       - cypress/run-tests:
           start-command: 'npm run start'
           cypress-command: 'npx cypress run --record --parallel --group 3x-electron on CircleCI'
