@@ -35,7 +35,6 @@ jobs:
       - restore_cache:
           key: dependencies-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}
 
-      - run: export DEBUG=cypress:cli*
       - run: npm ci
       - run: npm run cy:verify
       - run: npm run cy:info
@@ -80,7 +79,6 @@ jobs:
       # https://chocolatey.org/packages/GoogleChrome
       - run: choco install googlechrome --ignore-checksums -y
       - run: npm ci
-      - run: export DEBUG=cypress:cli*
       - run: npm run cy:verify
       - run: npm run cy:info
 
@@ -123,7 +121,6 @@ jobs:
       # install Firefox browser on Windows machine using Chocolatey
       # https://chocolatey.org/packages/Firefox
       - run: choco install firefox -y
-      - run: export DEBUG=cypress:cli*
       - run: npm ci
       - run: npm run cy:verify
       - run: npm run cy:info
@@ -177,7 +174,9 @@ jobs:
     steps:
       - cypress/install:
           post-install: 'npm run build'
-      - run: export DEBUG=cypress:cli*
+      - run:
+          command: |
+            echo "export DEBUG=cypress:cli*" >> "$BASH_ENV"
       - cypress/run-tests:
           start-command: 'npm run start'
           cypress-command: 'npx cypress run --record --parallel --group 3x-electron on CircleCI'
