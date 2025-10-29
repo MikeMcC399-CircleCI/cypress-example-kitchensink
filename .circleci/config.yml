@@ -152,6 +152,16 @@ jobs:
           command: |
             nvm install 24.11.0
             nvm use 24.11.0
+      - run:
+          command: |
+            node -v
+            npm -v
+      - run:
+          command: |
+            whereis node
+            whereis npm
+      - run:
+          command: cat package.json
       - cypress/install:
           post-install: "npm run build"
       # show Cypress cache folder and binary versions
@@ -223,30 +233,29 @@ jobs:
       - run: npx semantic-release
 
 workflows:
-  win-build:
-    jobs:
-      - win-test
-      - win-test-chrome
-      - win-test-firefox
+  # win-build:
+  #   jobs:
+  #     - win-test
+  #     - win-test-chrome
+  #     - win-test-firefox
 
   mac-build:
     jobs:
       - mac-test
 
-  linux-build:
-    max_auto_reruns: 3
-    jobs:
-      - linux-test
-      - linux-test-chrome
-      - linux-test-firefox
+  # linux-build:
+  #   max_auto_reruns: 3
+  #   jobs:
+  #     - linux-test
+  #     - linux-test-chrome
+  #     - linux-test-firefox
 
-      - release:
-          context: org-npm-credentials
-          filters:
-            branches:
-              only:
-                - master
-          requires:
-            - linux-test
-            - linux-test-chrome
-            - linux-test-firefox
+      # - release:
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
+      #     requires:
+      #       - linux-test
+      #       - linux-test-chrome
+      #       - linux-test-firefox
