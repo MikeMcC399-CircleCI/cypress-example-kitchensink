@@ -147,8 +147,7 @@ jobs:
   mac-test:
     executor: mac
     steps:
-      - run:
-          command: cat package.json
+
       - run:
           name: Install Node.js
           command: |
