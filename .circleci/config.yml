@@ -148,20 +148,22 @@ jobs:
     executor: mac
     steps:
       - run:
+          command: cat package.json
+      - run:
           name: Install Node.js
           command: |
+            command -v nvm
             nvm install 22
             nvm use 22
-      - run:
-          command: |
-            node -v
-            npm -v
       - run:
           command: |
             whereis node
             whereis npm
       - run:
-          command: cat package.json
+          command: |
+            node -v
+            npm -v
+
       - cypress/install:
           post-install: "npm run build"
       # show Cypress cache folder and binary versions
