@@ -148,12 +148,12 @@ jobs:
     executor: mac
     steps:
 
-      - run:
-          name: Install Node.js
-          command: |
-            command -v nvm
-            nvm install 24.11.0
-            nvm use 24.11.0
+      # - run:
+      #     name: Install Node.js
+      #     command: |
+      #       command -v nvm
+      #       nvm install 24.11.0
+      #       nvm use 24.11.0
       - run:
           command: |
             whereis node
