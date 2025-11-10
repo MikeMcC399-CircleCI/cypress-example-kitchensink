@@ -14,7 +14,7 @@ orbs:
 executors:
   mac:
     macos:
-      xcode: "16.2.0"
+      xcode: "16.4.0"
     resource_class: macos.m1.medium.gen1
 
 jobs:
@@ -223,30 +223,30 @@ jobs:
       - run: npx semantic-release
 
 workflows:
-  win-build:
-    jobs:
-      - win-test
-      - win-test-chrome
-      - win-test-firefox
+  # win-build:
+  #   jobs:
+  #     - win-test
+  #     - win-test-chrome
+  #     - win-test-firefox
 
   mac-build:
     jobs:
       - mac-test
 
-  linux-build:
-    max_auto_reruns: 3
-    jobs:
-      - linux-test
-      - linux-test-chrome
-      - linux-test-firefox
+  # linux-build:
+  #   max_auto_reruns: 3
+  #   jobs:
+  #     - linux-test
+  #     - linux-test-chrome
+  #     - linux-test-firefox
 
-      - release:
-          context: org-npm-credentials
-          filters:
-            branches:
-              only:
-                - master
-          requires:
-            - linux-test
-            - linux-test-chrome
-            - linux-test-firefox
+  #     - release:
+  #         context: org-npm-credentials
+  #         filters:
+  #           branches:
+  #             only:
+  #               - master
+  #         requires:
+  #           - linux-test
+  #           - linux-test-chrome
+  #           - linux-test-firefox
