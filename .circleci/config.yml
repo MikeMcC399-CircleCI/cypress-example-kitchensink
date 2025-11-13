@@ -148,6 +148,7 @@ jobs:
     executor: mac
     steps:
 
+      - checkout
       - run:
           name: Install Node.js
           command: |
