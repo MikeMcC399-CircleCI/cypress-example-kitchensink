@@ -153,10 +153,10 @@ jobs:
           command: |
             command -v nvm
             nvm --version
-            nvm which
+            nvm which current
             nvm install 24.11.0
             nvm use 24.11.0
-            nvm which
+            nvm which current
       - run:
           command: |
             whereis node
