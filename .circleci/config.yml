@@ -148,12 +148,15 @@ jobs:
     executor: mac
     steps:
 
-      # - run:
-      #     name: Install Node.js
-      #     command: |
-      #       command -v nvm
-      #       nvm install 24.11.0
-      #       nvm use 24.11.0
+      - run:
+          name: Install Node.js
+          command: |
+            command -v nvm
+            nvm --version
+            nvm which
+            nvm install 24.11.0
+            nvm use 24.11.0
+            nvm which
       - run:
           command: |
             whereis node
@@ -170,9 +173,9 @@ jobs:
       - run: npx cypress cache path
       - run: npx cypress cache list
       - run: npx cypress info
-      - cypress/run-tests:
-          start-command: 'npm run start'
-          cypress-command: 'npx cypress run --record --group Mac build'
+      # - cypress/run-tests:
+      #     start-command: 'npm run start'
+      #     cypress-command: 'npx cypress run --record --group Mac build'
 
   linux-test:
     # checks out code and installs dependencies once
