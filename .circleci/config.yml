@@ -155,17 +155,19 @@ jobs:
             command -v nvm
             nvm --version
             nvm which current
-            nvm install 24.11.0
-            nvm use 24.11.0
+            nvm install 24
+            nvm use 24
             nvm which current
+            npm ls
+            nvm alias 24
             npm ls
             node -v
             npm -v
-      - run:
-          command: |
-            nvm use 24.11.0
-            node -v
-            npm -v
+      # - run:
+      #     command: |
+      #       nvm use 24.11.0
+      #       node -v
+      #       npm -v
       - run:
           command: |
             whereis node
