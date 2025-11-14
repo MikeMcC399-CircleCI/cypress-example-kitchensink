@@ -158,7 +158,14 @@ jobs:
             nvm install 24.11.0
             nvm use 24.11.0
             nvm which current
-            nvm alias default 24.11.0
+            # nvm alias default 24.11.0
+            node -v
+            npm -v
+      - run:
+          command: |
+            nvm use 24.11.0
+            node -v
+            npm -v
       - run:
           command: |
             whereis node
