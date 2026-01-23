@@ -4,12 +4,12 @@ on: [push, workflow_dispatch]
 
 jobs:
   firefox:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Firefox
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         timeout-minutes: 10
         with:
           build: npm run build
@@ -17,12 +17,12 @@ jobs:
           browser: firefox
 
   firefox-headed:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Firefox
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         timeout-minutes: 10
         with:
           build: npm run build

@@ -7,9 +7,9 @@ on:
 jobs:
   test-with-bun:
     name: Cypress test
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
 
     - name: Install Bun
     # See https://github.com/oven-sh/bun#install
@@ -26,19 +26,19 @@ jobs:
     # and saved automatically after the entire workflow successfully finishes.
     # See https://github.com/actions/cache
     - name: Cache node modules
-      uses: actions/cache@v3
+      uses: actions/cache@v5
       with:
         path: ~/.npm
         key: ${{ runner.os }}-node-${{ hashFiles('**/bun.lockb') }}
 
     - name: Cache bun
-      uses: actions/cache@v3
+      uses: actions/cache@v5
       with:
         path: ~/.bun
         key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
 
     - name: Cache Cypress binary
-      uses: actions/cache@v3
+      uses: actions/cache@v5
       with:
         path: ~/.cache/Cypress
         key: cypress-${{ runner.os }}-cypress-${{ hashFiles('**/bun.lockb') }}
