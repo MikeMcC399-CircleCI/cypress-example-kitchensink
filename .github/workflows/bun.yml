@@ -1,69 +1,68 @@
 name: Cypress with Bun
 # https://github.com/oven-sh/bun
 
-on:
-  workflow_dispatch:
+on: workflow_dispatch
 
 jobs:
   test-with-bun:
     name: Cypress test
     runs-on: ubuntu-24.04
     steps:
-    - uses: actions/checkout@v6
+      - uses: actions/checkout@v6
 
-    - name: Install Bun
-    # See https://github.com/oven-sh/bun#install
-      run: npm install -g bun
+      - name: Install Bun
+        # See https://github.com/oven-sh/bun#install
+        run: npm install -g bun
 
-    # just so we learn about available environment variables GitHub provides
-    - name: Print env variables
-      run: |
-        npm install -g @bahmutov/print-env
-        print-env GITHUB
+      # just so we learn about available environment variables GitHub provides
+      - name: Print env variables
+        run: |
+          npm install -g @bahmutov/print-env
+          print-env GITHUB
 
-    # Restore the previous npm modules and Cypress binary archives.
-    # In case there's no previous cache the packages will be downloaded
-    # and saved automatically after the entire workflow successfully finishes.
-    # See https://github.com/actions/cache
-    - name: Cache node modules
-      uses: actions/cache@v5
-      with:
-        path: ~/.npm
-        key: ${{ runner.os }}-node-${{ hashFiles('**/bun.lockb') }}
+      # Restore the previous npm modules and Cypress binary archives.
+      # In case there's no previous cache the packages will be downloaded
+      # and saved automatically after the entire workflow successfully finishes.
+      # See https://github.com/actions/cache
+      - name: Cache node modules
+        uses: actions/cache@v5
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/bun.lockb') }}
 
-    - name: Cache bun
-      uses: actions/cache@v5
-      with:
-        path: ~/.bun
-        key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
+      - name: Cache bun
+        uses: actions/cache@v5
+        with:
+          path: ~/.bun
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
 
-    - name: Cache Cypress binary
-      uses: actions/cache@v5
-      with:
-        path: ~/.cache/Cypress
-        key: cypress-${{ runner.os }}-cypress-${{ hashFiles('**/bun.lockb') }}
+      - name: Cache Cypress binary
+        uses: actions/cache@v5
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-cypress-${{ hashFiles('**/bun.lockb') }}
 
-    - name: install dependencies and verify Cypress
-      env:
-        # make sure every Cypress install prints minimal information
-        CI: 1
-      # print Cypress and OS info
-      run: |
-        bun install --frozen-lockfile
-        bun cypress install
-        bun cypress verify
-        bun cypress info
-        bun cypress version
-        bun cypress version --component package
-        bun cypress version --component binary
-        bun cypress version --component electron
-        bun cypress version --component node
+      - name: install dependencies and verify Cypress
+        env:
+          # make sure every Cypress install prints minimal information
+          CI: 1
+        # print Cypress and OS info
+        run: |
+          bun install --frozen-lockfile
+          bun cypress install
+          bun cypress verify
+          bun cypress info
+          bun cypress version
+          bun cypress version --component package
+          bun cypress version --component binary
+          bun cypress version --component electron
+          bun cypress version --component node
 
-    # Starts local server, then runs Cypress tests and records results on Cypress Cloud
-    - name: Start server
-      run: bun run start &
+      # Starts local server, then runs Cypress tests and records results on Cypress Cloud
+      - name: Start server
+        run: bun run start &
 
-    - name: Cypress tests
-      run: bun cypress run
-      env:
-        TERM: xterm
+      - name: Cypress tests
+        run: bun cypress run
+        env:
+          TERM: xterm
