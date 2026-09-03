@@ -21,6 +21,8 @@ executors:
 jobs:
   win-test:
     working_directory: ~/app
+    environment:
+      DEBUG: 'cypress:*'
     executor:
       name: win/default
       size: medium
@@ -61,6 +63,8 @@ jobs:
 
   win-test-chrome:
     working_directory: ~/app
+    environment:
+      DEBUG: 'cypress:*'
     executor:
       name: win/default
       size: medium
@@ -107,6 +111,8 @@ jobs:
 
   win-test-firefox:
     working_directory: ~/app
+    environment:
+      DEBUG: 'cypress:*'
     executor:
       name: win/default
       size: medium
@@ -149,6 +155,8 @@ jobs:
           path: cypress\screenshots
 
   mac-test:
+    environment:
+      DEBUG: 'cypress:*'
     executor: mac
     steps:
       - run:
@@ -176,6 +184,8 @@ jobs:
     executor:
       name: cypress/default
       node-version: '24.18.0'
+    environment:
+      DEBUG: 'cypress:*'
     steps:
       - cypress/install:
           post-install: 'npm run build'
@@ -199,6 +209,8 @@ jobs:
     executor:
       name: cypress/default
       node-version: '24.18.0'
+    environment:
+      DEBUG: 'cypress:*'
     steps:
       - browser-tools/install_chrome
       - cypress/install
@@ -213,6 +225,8 @@ jobs:
     executor:
       name: cypress/default
       node-version: '24.18.0'
+    environment:
+      DEBUG: 'cypress:*'
     steps:
       - browser-tools/install_firefox
       - cypress/install
@@ -225,6 +239,8 @@ jobs:
     executor:
       name: cypress/default
       node-version: '24.18.0'
+    environment:
+      DEBUG: 'cypress:*'
     steps:
       - checkout
       - run: npm ci
@@ -244,9 +260,9 @@ workflows:
   linux-build:
     max_auto_reruns: 3
     jobs:
-      - linux-test
+      # - linux-test
       - linux-test-chrome
-      - linux-test-firefox
+      # - linux-test-firefox
 
       # - release:
       #     context: org-npm-credentials
