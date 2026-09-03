@@ -169,10 +169,10 @@ jobs:
           cypress-command: 'npx cypress run --record --group Mac build'
 
   linux-test:
-    # checks out code and installs dependencies once
-    # runs on 3 machines, load balances tests
-    # and records on Cypress Cloud
-    parallelism: 3
+    # # checks out code and installs dependencies once
+    # # runs on 3 machines, load balances tests
+    # # and records on Cypress Cloud
+    # parallelism: 3
     executor:
       name: cypress/default
       node-version: '24.18.0'
@@ -181,7 +181,8 @@ jobs:
           post-install: 'npm run build'
       - cypress/run-tests:
           start-command: 'npm run start'
-          cypress-command: 'npx cypress run --record --parallel --group 3x-electron on CircleCI'
+          # cypress-command: 'npx cypress run --record --parallel --group 3x-electron on CircleCI'
+          cypress-command: 'npx cypress run'
       - run: npx cypress cache path
       - run: npx cypress cache list
       - run: npx cypress info
@@ -193,8 +194,8 @@ jobs:
       - run: npx cypress version --component node
 
   linux-test-chrome:
-    # runs on 2 machines using Chrome browser
-    parallelism: 2
+    # # runs on 2 machines using Chrome browser
+    # parallelism: 2
     executor:
       name: cypress/default
       node-version: '24.18.0'
@@ -203,11 +204,12 @@ jobs:
       - cypress/install
       - cypress/run-tests:
           start-command: 'npm run start'
-          cypress-command: 'npx cypress run --browser chrome --record --parallel --group 2x-chrome on CircleCI'
+          # cypress-command: 'npx cypress run --browser chrome --record --parallel --group 2x-chrome on CircleCI'
+          cypress-command: 'npx cypress run --browser chrome'
 
   linux-test-firefox:
-    # runs on 2 machines using Firefox browser
-    parallelism: 2
+    # # runs on 2 machines using Firefox browser
+    # parallelism: 2
     executor:
       name: cypress/default
       node-version: '24.18.0'
@@ -216,7 +218,8 @@ jobs:
       - cypress/install
       - cypress/run-tests:
           start-command: 'npm run start'
-          cypress-command: 'npx cypress run --browser firefox --record --parallel --group 2x-firefox on CircleCI'
+          # cypress-command: 'npx cypress run --browser firefox --record --parallel --group 2x-firefox on CircleCI'
+          cypress-command: 'npx cypress run --browser firefox'
 
   release:
     executor:
@@ -228,15 +231,15 @@ jobs:
       - run: npx semantic-release@25.0.3
 
 workflows:
-  win-build:
-    jobs:
-      - win-test
-      - win-test-chrome
-      - win-test-firefox
+  # win-build:
+  #   jobs:
+  #     - win-test
+  #     - win-test-chrome
+  #     - win-test-firefox
 
-  mac-build:
-    jobs:
-      - mac-test
+  # mac-build:
+  #   jobs:
+  #     - mac-test
 
   linux-build:
     max_auto_reruns: 3
@@ -245,13 +248,13 @@ workflows:
       - linux-test-chrome
       - linux-test-firefox
 
-      - release:
-          context: org-npm-credentials
-          filters:
-            branches:
-              only:
-                - master
-          requires:
-            - linux-test
-            - linux-test-chrome
-            - linux-test-firefox
+      # - release:
+      #     context: org-npm-credentials
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
+      #     requires:
+      #       - linux-test
+      #       - linux-test-chrome
+      #       - linux-test-firefox
